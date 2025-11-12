@@ -5,6 +5,14 @@
   font-family: 'Poppins', sans-serif;
 }
 
+.home-page{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  
+}
+
 body, html {
   height: 100%;
   background: #f1f5f9;
@@ -22,9 +30,7 @@ header h1 {
   font-size: 26px;
 }
 
-nav {
-  margin-top: 10px;
-}
+
 
 nav a {
   color: #fff;
@@ -39,11 +45,33 @@ nav a:hover {
 }
 
 main {
-  padding: 50px 20px;
+  padding: 20px;
   text-align: center;
 }
 
 main p {
   font-size: 18px;
   color: #555;
+}
+
+.home-banner {
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+}
+
+.home-banner-text h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.home-banner-text p {
+  font-size: 1.5rem;
+  margin: 10px 0 0;
 }

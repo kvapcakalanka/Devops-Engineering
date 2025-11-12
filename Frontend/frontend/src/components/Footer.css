@@ -1,0 +1,54 @@
+/* Final Footer.css Update */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+main {
+  min-height: calc(100vh - 140px); /* Adjust based on Navbar and Footer height */
+  margin-top: 70px; /* Adjust based on Navbar height */
+}
+
+/* Ensure Footer is always at the bottom */
+
+.footer {
+  background: linear-gradient(to bottom, #d2a679, #a5673f);
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.footer-connect h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.footer-icons {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.footer-icons a {
+  margin: 0 10px;
+  color: #fff;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.footer-icons a:hover {
+  color: #ddd;
+}
+
+.footer-copyright {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
