@@ -22,8 +22,8 @@ RUN rm -rf /usr/share/nginx/html/*
 # Copy Vite build output to Nginx folder
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Expose port 80
-EXPOSE 80
+# Expose port 3000
+EXPOSE 3000
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
