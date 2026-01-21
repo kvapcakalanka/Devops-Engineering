@@ -32,9 +32,9 @@ pipeline {
         }
         stage('Deploy Frontend to EC2') {
             steps {
-                sshagent(credentials: ['app-server-ssh-key']) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'app-server-ssh-key', keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USER')]) {
                     sh '''
-                      ssh -o StrictHostKeyChecking=no ubuntu@${APP_SERVER} \
+                      ssh -i $SSH_KEY -o StrictHostKeyChecking=no ubuntu@${APP_SERVER} \
                         'sudo docker pull pasan2001/devops-engineering:frontend-v2 && \
                          sudo docker stop frontend || true && \
                          sudo docker rm frontend || true && \
