@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        APP_SERVER = "54.145.100.121" // Terraform output: app_public_ip
+        APP_SERVER = "54.145.100.121"
     }
     stages {
         stage('Clone Repository') {
