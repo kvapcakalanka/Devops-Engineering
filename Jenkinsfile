@@ -1,8 +1,11 @@
 pipeline {
     agent any
+<<<<<<< HEAD
     environment {
         APP_SERVER = "54.145.100.121" // Terraform output: app_public_ip
     }
+=======
+>>>>>>> 4c6fc095c85a49a54aef1e89fe0e5a6bced057e8
 
     stages {
         stage('Clone Repository') {
@@ -34,6 +37,7 @@ pipeline {
                 }
             }
         }
+<<<<<<< HEAD
 
         stage('Deploy Frontend to EC2') {
             steps {
@@ -48,5 +52,7 @@ pipeline {
                 }
             }
         }
+=======
+>>>>>>> 4c6fc095c85a49a54aef1e89fe0e5a6bced057e8
     }
 }
