@@ -1,0 +1,10 @@
+{
+    "SecurityGroups": [
+        {
+            "GroupName": "react-devops-app-sg",
+            "GroupId": "sg-09c2149c1ea3ca27c"
+        }
+    ],
+    "SubnetId": "subnet-0c9a50cc0161898a0",
+    "PublicIp": "54.145.100.121"
+}

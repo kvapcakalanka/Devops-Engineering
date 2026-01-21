@@ -1,0 +1,24 @@
+output "jenkins_public_ip" {
+  description = "Public IP of Jenkins server"
+  value       = aws_instance.jenkins.public_ip
+}
+
+output "app_public_ip" {
+  description = "Public IP of application server"
+  value       = aws_instance.app.public_ip
+}
+
+output "jenkins_url" {
+  description = "Jenkins URL"
+  value       = "http://${aws_instance.jenkins.public_ip}:8080"
+}
+
+output "app_url" {
+  description = "Application URL"
+  value       = "http://${aws_instance.app.public_ip}"
+}
+
+output "s3_bucket_name" {
+  description = "S3 bucket for artifacts"
+  value       = aws_s3_bucket.artifacts.id
+}

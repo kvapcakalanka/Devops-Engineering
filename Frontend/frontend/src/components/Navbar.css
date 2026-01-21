@@ -1,0 +1,105 @@
+/* Final Navbar.css Update */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #000;
+}
+
+.navbar-logo img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  margin: 0 15px;
+  position: relative;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #000;
+  font-size: 1rem;
+}
+
+.navbar-links .dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  list-style: none;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu li {
+  margin: 5px 0;
+}
+
+.dropdown-menu a {
+  text-decoration: none;
+  color: #000;
+}
+
+.navbar-language {
+  display: flex;
+  align-items: center;
+}
+
+.language-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #000;
+}
+
+.language-icon {
+  margin-right: 5px;
+}
+
+/* Ensure body and html take full height */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Ensure main content is properly spaced */
+main {
+  margin-top: 70px; /* Adjust based on Navbar height */
+  margin-bottom: 70px; /* Adjust based on Footer height */
+}
