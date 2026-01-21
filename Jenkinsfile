@@ -1,31 +1,24 @@
 pipeline {
     agent any
-<<<<<<< HEAD
     environment {
         APP_SERVER = "54.145.100.121" // Terraform output: app_public_ip
     }
-=======
->>>>>>> 4c6fc095c85a49a54aef1e89fe0e5a6bced057e8
-
     stages {
         stage('Clone Repository') {
             steps {
                 git branch: 'main', url: 'https://github.com/kvapcakalanka/Devops-Engineering.git'
             }
         }
-
         stage('Build Backend Image') {
             steps {
                 sh 'docker build -t pasan2001/devops-engineering:backend-v2 ./Backend'
             }
         }
-
         stage('Build Frontend Image') {
             steps {
                 sh 'docker build -t pasan2001/devops-engineering:frontend-v2 ./Frontend'
             }
         }
-
         stage('Push to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
@@ -37,8 +30,6 @@ pipeline {
                 }
             }
         }
-<<<<<<< HEAD
-
         stage('Deploy Frontend to EC2') {
             steps {
                 sshagent(credentials: ['app-server-ssh-key']) {
@@ -52,7 +43,5 @@ pipeline {
                 }
             }
         }
-=======
->>>>>>> 4c6fc095c85a49a54aef1e89fe0e5a6bced057e8
     }
 }
