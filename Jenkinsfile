@@ -38,7 +38,7 @@ pipeline {
                     sh '''
                                             ssh -i $SSH_KEY -o StrictHostKeyChecking=no ${EC2_USER}@${APP_SERVER} << 'EOF'
                                                 set -e
-                                                APP_DIR="$HOME/app/Devops-Engineering-main/Devops-Engineering-main"
+                                                APP_DIR="$HOME/app/Devops-Engineering-main"
 
                                                 if ! command -v git >/dev/null 2>&1; then
                                                     if command -v yum >/dev/null 2>&1; then
@@ -51,8 +51,8 @@ pipeline {
 
                                                 if [ ! -d "$APP_DIR/.git" ]; then
                                                     mkdir -p "$HOME/app"
-                                                    cd "$HOME/app"
-                                                    git clone https://github.com/kvapcakalanka/Devops-Engineering.git Devops-Engineering-main
+                                                      cd "$HOME/app"
+                                                      git clone https://github.com/kvapcakalanka/Devops-Engineering.git Devops-Engineering-main
                                                 fi
 
                                                 cd "$APP_DIR"
