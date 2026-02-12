@@ -58,16 +58,20 @@ pipeline {
                                                 cd "$APP_DIR"
                                                 git pull || true
 
-                                                if docker compose version >/dev/null 2>&1; then
+                                                HAS_DOCKER_COMPOSE=0
+                                                docker compose version >/dev/null 2>&1 && HAS_DOCKER_COMPOSE=1 || true
+
+                                                if [ "$HAS_DOCKER_COMPOSE" -eq 1 ]; then
                                                     COMPOSE_CMD="docker compose"
                                                 else
                                                     COMPOSE_CMD="docker-compose"
                                                     if ! command -v docker-compose >/dev/null 2>&1; then
-                                                        if command -v yum >/dev/null 2>&1; then
-                                                            sudo yum install -y docker-compose
-                                                        elif command -v apt-get >/dev/null 2>&1; then
+                                                        if command -v apt-get >/dev/null 2>&1; then
                                                             sudo apt-get update -y
                                                             sudo apt-get install -y docker-compose
+                                                        else
+                                                            sudo curl -L "https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                                                            sudo chmod +x /usr/local/bin/docker-compose
                                                         fi
                                                     fi
                                                 fi
