@@ -58,17 +58,22 @@ pipeline {
                                                 cd "$APP_DIR"
                                                 git pull || true
 
-                                                if ! docker compose version >/dev/null 2>&1; then
-                                                    if command -v yum >/dev/null 2>&1; then
-                                                        sudo yum install -y docker-compose-plugin
-                                                    elif command -v apt-get >/dev/null 2>&1; then
-                                                        sudo apt-get update -y
-                                                        sudo apt-get install -y docker-compose-plugin
+                                                if docker compose version >/dev/null 2>&1; then
+                                                    COMPOSE_CMD="docker compose"
+                                                else
+                                                    COMPOSE_CMD="docker-compose"
+                                                    if ! command -v docker-compose >/dev/null 2>&1; then
+                                                        if command -v yum >/dev/null 2>&1; then
+                                                            sudo yum install -y docker-compose
+                                                        elif command -v apt-get >/dev/null 2>&1; then
+                                                            sudo apt-get update -y
+                                                            sudo apt-get install -y docker-compose
+                                                        fi
                                                     fi
                                                 fi
 
-                                                sudo docker compose pull
-                                                sudo docker compose up -d
+                                                sudo $COMPOSE_CMD pull
+                                                sudo $COMPOSE_CMD up -d
                                                 sudo docker system prune -f
                                                 sudo docker ps
 EOF
