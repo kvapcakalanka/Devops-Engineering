@@ -386,7 +386,7 @@ function Home() {
                 Cancel
               </button>
               <button className="btn-primary" onClick={handleAddTask}>
-                Add Task
+                New Task
               </button>
             </div>
           </div>
