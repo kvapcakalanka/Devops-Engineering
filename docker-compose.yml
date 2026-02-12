@@ -29,7 +29,7 @@ services:
     image: pasan2001/devops-engineering:frontend-v2
     container_name: frontend
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on:
       - backend
     networks:
