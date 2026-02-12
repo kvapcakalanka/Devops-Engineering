@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Build Frontend Image') {
             steps {
-                sh 'docker build -t ${DOCKER_REGISTRY}:frontend-v2 ./Frontend'
+                sh 'docker build -t ${DOCKER_REGISTRY}:frontend-v2 ./app/frontend'
             }
         }
         stage('Push to Docker Hub') {
