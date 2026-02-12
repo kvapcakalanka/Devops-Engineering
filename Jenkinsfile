@@ -31,47 +31,22 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to EC2 with Docker Compose') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'app-server-ssh-key', keyFileVariable: 'SSH_KEY')]) {
                     sh '''
                       ssh -i $SSH_KEY -o StrictHostKeyChecking=no ubuntu@${APP_SERVER} << 'EOF'
-                        # Pull latest image
-                        sudo docker pull ${DOCKER_REGISTRY}:frontend-v2
-                        
-                        # Stop and remove old container
-                        sudo docker stop frontend 2>/dev/null || true
-                        sudo docker rm frontend 2>/dev/null || true
-                        
-                        # Run new container
-                        sudo docker run -d \
-                          --name frontend \
-                          --restart unless-stopped \
-                          -p 80:80 \
-                          ${DOCKER_REGISTRY}:frontend-v2
-                        
-                        # Verify deployment
-                        sudo docker ps | grep frontend
+                        cd ~/app/Devops-Engineering-main/Devops-Engineering-main
+                        git pull || true
+                        sudo docker-compose pull
+                        sudo docker-compose up -d
+                        sudo docker system prune -f
+                        sudo docker ps
 EOF
                     '''
                 }
             }
         }
-                stage('Deploy to EC2 with Docker Compose') {
-                        steps {
-                                withCredentials([sshUserPrivateKey(credentialsId: 'app-server-ssh-key', keyFileVariable: 'SSH_KEY')]) {
-                                        sh '''
-                                            ssh -i $SSH_KEY -o StrictHostKeyChecking=no ubuntu@${APP_SERVER} << 'EOF'
-                                                cd ~/app/Devops-Engineering-main/Devops-Engineering-main
-                                                git pull || true
-                                                sudo docker-compose pull
-                                                sudo docker-compose up -d
-                                                sudo docker system prune -f
-                                                sudo docker ps
-EOF
-                                        '''
-                                }
-                        }
-                }
     }
     post {
         success {
