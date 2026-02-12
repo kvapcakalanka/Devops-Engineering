@@ -86,6 +86,7 @@ pipeline {
                                                 fi
 
                                                 $COMPOSE_CMD pull
+                                                $COMPOSE_CMD down --remove-orphans || true
                                                 $COMPOSE_CMD up -d
                                                 $DOCKER_CMD system prune -f
                                                 $DOCKER_CMD ps
