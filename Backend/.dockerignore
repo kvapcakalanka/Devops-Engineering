@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 node_modules
 npm-debug.log
 .git
@@ -11,3 +12,18 @@ build
 *.log
 .editorconfig
 README.md
+=======
+node_modules
+npm-debug.log
+.git
+.gitignore
+.env
+.DS_Store
+.vscode
+.idea
+dist
+build
+*.log
+.editorconfig
+README.md
+>>>>>>> 48257d9d00e14681226ea1465a0d83ad5cd30691
