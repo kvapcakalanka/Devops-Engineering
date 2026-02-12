@@ -158,7 +158,7 @@ function Home() {
               <CheckCircle2 size={24} />
             </div>
             <div className="stat-info">
-              <p className="stat-label">Total Tasks</p>
+              <p className="stat-label">Ttal Tasks</p>
               <h3 className="stat-value">{totalTasks}</h3>
             </div>
           </div>
