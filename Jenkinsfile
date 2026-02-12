@@ -87,6 +87,15 @@ pipeline {
 
                                                 $COMPOSE_CMD pull
                                                 $COMPOSE_CMD down --remove-orphans || true
+                                                
+                                                # Force remove any lingering containers with conflicting names
+                                                for container in mongo backend frontend; do
+                                                    $DOCKER_CMD stop "devops-engineering-main_${container}_1" 2>/dev/null || true
+                                                    $DOCKER_CMD rm "devops-engineering-main_${container}_1" 2>/dev/null || true
+                                                    $DOCKER_CMD stop "${container}" 2>/dev/null || true
+                                                    $DOCKER_CMD rm "${container}" 2>/dev/null || true
+                                                done
+                                                
                                                 $COMPOSE_CMD up -d
                                                 $DOCKER_CMD system prune -f
                                                 $DOCKER_CMD ps
