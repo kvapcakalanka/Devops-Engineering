@@ -36,5 +36,5 @@ variable "jenkins_instance_type" {
 variable "app_instance_type" {
   description = "EC2 instance type for the React app host"
   type        = string
-  default     = "t2.micro"
+  default     = "t2.small"
 }
