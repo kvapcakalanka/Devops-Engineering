@@ -1,7 +1,8 @@
 pipeline {
     agent any
     environment {
-        APP_SERVER = "54.145.100.121" // Terraform output: app_public_ip
+        APP_SERVER = "98.93.104.219" // Current EC2 public IP
+        EC2_USER = "ec2-user" // Use ubuntu for Ubuntu AMI
         DOCKER_REGISTRY = "pasan2001/devops-engineering"
     }
     stages {
@@ -35,7 +36,7 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'app-server-ssh-key', keyFileVariable: 'SSH_KEY')]) {
                     sh '''
-                      ssh -i $SSH_KEY -o StrictHostKeyChecking=no ubuntu@${APP_SERVER} << 'EOF'
+                      ssh -i $SSH_KEY -o StrictHostKeyChecking=no ${EC2_USER}@${APP_SERVER} << 'EOF'
                         cd ~/app/Devops-Engineering-main/Devops-Engineering-main
                         git pull || true
                         sudo docker-compose pull
