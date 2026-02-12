@@ -36,13 +36,41 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'app-server-ssh-key', keyFileVariable: 'SSH_KEY')]) {
                     sh '''
-                      ssh -i $SSH_KEY -o StrictHostKeyChecking=no ${EC2_USER}@${APP_SERVER} << 'EOF'
-                        cd ~/app/Devops-Engineering-main/Devops-Engineering-main
-                        git pull || true
-                        sudo docker-compose pull
-                        sudo docker-compose up -d
-                        sudo docker system prune -f
-                        sudo docker ps
+                                            ssh -i $SSH_KEY -o StrictHostKeyChecking=no ${EC2_USER}@${APP_SERVER} << 'EOF'
+                                                set -e
+                                                APP_DIR="$HOME/app/Devops-Engineering-main/Devops-Engineering-main"
+
+                                                if ! command -v git >/dev/null 2>&1; then
+                                                    if command -v yum >/dev/null 2>&1; then
+                                                        sudo yum install -y git
+                                                    elif command -v apt-get >/dev/null 2>&1; then
+                                                        sudo apt-get update -y
+                                                        sudo apt-get install -y git
+                                                    fi
+                                                fi
+
+                                                if [ ! -d "$APP_DIR/.git" ]; then
+                                                    mkdir -p "$HOME/app"
+                                                    cd "$HOME/app"
+                                                    git clone https://github.com/kvapcakalanka/Devops-Engineering.git Devops-Engineering-main
+                                                fi
+
+                                                cd "$APP_DIR"
+                                                git pull || true
+
+                                                if ! docker compose version >/dev/null 2>&1; then
+                                                    if command -v yum >/dev/null 2>&1; then
+                                                        sudo yum install -y docker-compose-plugin
+                                                    elif command -v apt-get >/dev/null 2>&1; then
+                                                        sudo apt-get update -y
+                                                        sudo apt-get install -y docker-compose-plugin
+                                                    fi
+                                                fi
+
+                                                sudo docker compose pull
+                                                sudo docker compose up -d
+                                                sudo docker system prune -f
+                                                sudo docker ps
 EOF
                     '''
                 }
