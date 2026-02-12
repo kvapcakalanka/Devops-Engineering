@@ -31,7 +31,6 @@ pipeline {
                 }
             }
         }
-        stage('Deploy Frontend to EC2') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'app-server-ssh-key', keyFileVariable: 'SSH_KEY')]) {
                     sh '''
@@ -57,6 +56,22 @@ EOF
                 }
             }
         }
+                stage('Deploy to EC2 with Docker Compose') {
+                        steps {
+                                withCredentials([sshUserPrivateKey(credentialsId: 'app-server-ssh-key', keyFileVariable: 'SSH_KEY')]) {
+                                        sh '''
+                                            ssh -i $SSH_KEY -o StrictHostKeyChecking=no ubuntu@${APP_SERVER} << 'EOF'
+                                                cd ~/app/Devops-Engineering-main/Devops-Engineering-main
+                                                git pull || true
+                                                sudo docker-compose pull
+                                                sudo docker-compose up -d
+                                                sudo docker system prune -f
+                                                sudo docker ps
+EOF
+                                        '''
+                                }
+                        }
+                }
     }
     post {
         success {

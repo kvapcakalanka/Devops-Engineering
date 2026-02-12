@@ -12,7 +12,7 @@ services:
       - app-network
 
   backend:
-    build: ./Backend
+    image: pasan2001/devops-engineering:backend-v2
     container_name: backend
     ports:
       - "5000:5000"
@@ -26,10 +26,10 @@ services:
       - app-network
 
   frontend:
-    build: ./Frontend
+    image: pasan2001/devops-engineering:frontend-v2
     container_name: frontend
     ports:
-      - "3000:80"
+      - "3000:3000"
     depends_on:
       - backend
     networks:
