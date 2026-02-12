@@ -220,7 +220,7 @@ function Home() {
 
           <button className="btn-add" onClick={() => setShowAddTask(true)}>
             <Plus size={20} />
-            Add Task
+            New Task
           </button>
         </div>
 
