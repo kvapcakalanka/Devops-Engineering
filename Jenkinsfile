@@ -58,13 +58,17 @@ pipeline {
                                                 cd "$APP_DIR"
                                                 git pull || true
 
+                                                DOCKER_CMD="docker"
+                                                if ! docker ps >/dev/null 2>&1; then
+                                                    DOCKER_CMD="sudo docker"
+                                                fi
+
                                                 HAS_DOCKER_COMPOSE=0
-                                                docker compose version >/dev/null 2>&1 && HAS_DOCKER_COMPOSE=1 || true
+                                                $DOCKER_CMD compose version >/dev/null 2>&1 && HAS_DOCKER_COMPOSE=1 || true
 
                                                 if [ "$HAS_DOCKER_COMPOSE" -eq 1 ]; then
-                                                    COMPOSE_CMD="docker compose"
+                                                    COMPOSE_CMD="$DOCKER_CMD compose"
                                                 else
-                                                    COMPOSE_CMD="docker-compose"
                                                     if ! command -v docker-compose >/dev/null 2>&1; then
                                                         if command -v apt-get >/dev/null 2>&1; then
                                                             sudo apt-get update -y
@@ -74,12 +78,17 @@ pipeline {
                                                             sudo chmod +x /usr/local/bin/docker-compose
                                                         fi
                                                     fi
+                                                    if [ "$DOCKER_CMD" = "sudo docker" ]; then
+                                                        COMPOSE_CMD="sudo docker-compose"
+                                                    else
+                                                        COMPOSE_CMD="docker-compose"
+                                                    fi
                                                 fi
 
-                                                sudo $COMPOSE_CMD pull
-                                                sudo $COMPOSE_CMD up -d
-                                                sudo docker system prune -f
-                                                sudo docker ps
+                                                $COMPOSE_CMD pull
+                                                $COMPOSE_CMD up -d
+                                                $DOCKER_CMD system prune -f
+                                                $DOCKER_CMD ps
 EOF
                     '''
                 }
