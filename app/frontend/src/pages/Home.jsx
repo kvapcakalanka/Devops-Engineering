@@ -43,7 +43,7 @@ function Home() {
       setTasks(JSON.parse(savedTasks));
     } else {
       setTasks([
-        { id: 1, title: 'Review project documentation', description: 'Update API docs with new endpoints', priority: 'High', deadline: '2026-02-15', status: 'In Progress', category: 'Work', createdAt: new Date().toISOString() },
+        { id: 1, title: 'Review project document', description: 'Update API docs with new endpoints', priority: 'High', deadline: '2026-02-15', status: 'In Progress', category: 'Work', createdAt: new Date().toISOString() },
         { id: 2, title: 'Prepare presentation slides', description: 'Create slides for team meeting', priority: 'Medium', deadline: '2026-02-18', status: 'Pending', category: 'Work', createdAt: new Date().toISOString() },
         { id: 3, title: 'Code review', description: 'Review pull requests from team members', priority: 'High', deadline: '2026-02-14', status: 'Completed', category: 'Development', createdAt: new Date().toISOString() },
       ]);
